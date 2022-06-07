@@ -1,0 +1,33 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Comisiones AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Restultado de su busqueda</h1>
+
+{% endblock %}
+{% block ContenidoVariable %}
+
+{% if cursos %}
+<h2>Estos son los resultados de su busqueda:</h2>
+<br><br>
+<ul>    
+{% for curso in cursos %}
+<h3>
+    <li>{{curso.nombre}}</li>
+    <li>{{curso.comision}}</li>
+</h3>
+{% endfor %}    
+</ul>
+{% else %}
+<center>
+<h3>No se han encontrado resultados en la base de datos.</h3>
+</center>
+{% endif %}    
+{% endblock %}

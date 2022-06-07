@@ -1,0 +1,55 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Estudiantes AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Estudiantes</h1>
+<h2>Plataforma de inscripcion</h2>
+{% endblock %}
+{% block ContenidoVariable %}
+<center>
+    <form action="" method="POST">{% csrf_token %}
+        
+        <table>
+        
+            {{miFormulario.as_table}}
+        
+        </table>
+        
+        
+        <input type="submit" value="Enviar formulario API">
+    </form>
+</center>
+    {% endblock %}
+
+<!-- 
+    <center>
+        <h3>Formulario de inscripcion de estudiantes</h3>
+        <form action="{% url 'FormularioEstudiante' %}" method="POST">{% csrf_token %}
+            <p>
+                <b>Nombre:<br>  </b> <input type="text" placeholder="Ingrese su nombre" name="nombre"><br><br>
+                <b>Apellido:<br>    </b> <input type="text" placeholder="Ingrese su apellido" name="apellido"><br><br>
+                <b>E-mail:<br>      </b> <input type="email" placeholder="abcd@fgh.com" name="email"><br><br><br>
+                <input type="submit" value="Agregar nuevo estudiante">
+            </p>
+
+        </form>
+    </center>
+
+
+
+    <form action="formulario_estudiante" method="POST">{% csrf_token %}
+        <p>
+            <b>Nombre:  </b> <input type="text" placeholder="Ingrese su nombre" name="nombre"><br><br>
+            <b>Apellido:    </b> <input type="text" placeholder="Ingrese su apellido" name="apellido"><br><br>
+            <b>E-mail:      </b> <input type="email" placeholder="abcd@fgh.com" name="email"><br><br><br>
+            <input type="submit" value="Agregar nuevo estudiante">
+        </p>
+ -->
+

@@ -1,32 +1,121 @@
-from django.template import loader
-from django.shortcuts import render
-from AppCoder.models import Curso, Entregable, Estudiante, Profesor
- 
 
-def mi_plantilla(request):
-    return render(request, 'plantilla.html')
+from django.http import HttpResponse
+from django.shortcuts import render
+from AppCoder.models import Curso, Estudiante, Profesor, Entregable
+from AppCoder.forms import CursoFormulario, ProfesorFormulario, EstudianteFormulario, EntregableFormulario
+ 
+#  ACA ES DONDE VAMOS A CREAR REALMENTE LOS FORMULARIOS MEDIANTE EL API DE DJANGO, ES DECIR, UNA HERRAMIENTA QUE PERMITE HACER MUCHO MAS FACIL Y DINAMICA LA CREACION DE FORMULARIOS, YA QUE UNA VEZ DETERMINADA LA CLASE EN FORMS.PY NO HARA FALTA NOMBRAR CADA UNA DE LAS VARIABLES A AGREGAR DESPUES. (SIGUE EN URLS.PY)
+
+def inicio(request):
+    return render(request, 'Inicio.html')
+
 
 def curso(request):
-    curso = Curso(nombre = 'Javascript', comision = 12345)
-    curso.save()
-    dic = {'Nombre del curso:':curso.nombre, 'Camada N°: ':curso.comision}
-    return render(request, 'template_cursos.html', dic)
+    
+    return render(request, 'template_cursos.html')  
+
+
+def cursoFormulario(request):
+    
+    if request.method == 'POST':
+        miFormulario = CursoFormulario(request.POST)
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            nombre = informacion['curso']
+            comision = informacion['comision']
+            curso = Curso(nombre=nombre, comision=comision)
+            curso.save()
+            return render(request, 'AppCoder/Inicio.html')
+    
+    else:
+        miFormulario= CursoFormulario()
+    
+    return render(request, 'cursoFormulario.html', {'miFormulario':miFormulario} )
+
+
 
 def profesores(request):
-    profesor_1= Profesor(nombre='Juan', apellido='Perez', email='juanperez@outlook.com', profesion='Ingeniero')
-    profesor_1.save()
-    dic= {'Nombre: ': profesor_1.nombre, 'Apellido: ': profesor_1.apellido, 'E-mail: ': profesor_1.email, 'Profesion: ': profesor_1.profesion}
-    return render(request, 'template_profesores.html', dic)
+    return render(request, 'template_profesores.html')
 
-def entregable(request):
-    entregable_1=Entregable(nombre='TP_1', fecha_de_entrega=None, entregado=False)
-    entregable_1.save()
-    dic={'Nombre: ':entregable_1.nombre, 'Fecha de entrega: ':entregable_1.fecha_de_entrega, 'Estado: ':entregable_1.entregado}
-    return render(request, 'template_entregables.html', dic)  
+
+def formularioProfesor(request):
+    if request.method == 'POST':
+        miFormulario = ProfesorFormulario(request.POST)
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            nombre = informacion['nombre']
+            apellido = informacion['apellido']
+            email = informacion['email']
+            profesion = informacion['profesion']
+            profesor = Profesor(nombre=nombre, apellido=apellido, email=email, profesion=profesion)
+            profesor.save()
+            return render(request, 'AppCoder/Inicio.html')
+    else:
+        miFormulario = ProfesorFormulario()    
+    return render(request, 'FormularioProfesores.html', {'miFormulario':miFormulario})
+
 
 def estudiante(request):
-    estudiante_1=Estudiante(nombre='Roberto', apellido='Dominguez', email='Robertodominguez@outlook.com')
-    estudiante_1.save()
-    dic={'Nombre: ':estudiante_1.nombre, 'Apellido: ':estudiante_1.apellido, 'E-mail: ':estudiante_1.email}
-    return render(request, 'template_estudiantes.html', dic)  
+    return render(request, 'template_estudiantes.html')  
+# FORMULARIO COMUN
+# def formularioEstudiante(request):
+#     if request.method == 'POST':
+#         estudiante = Estudiante(request.POST['nombre'], request.POST['apellido'], request.POST['email'])
+#         estudiante.save()
+#         return render(request, 'AppCoder/Inicio.html')
+#     return render(request, 'formulario_estudiante.html')
 
+def formularioEstudiante(request):
+    if request.method == 'POST':
+        miFormulario = EstudianteFormulario(request.POST)
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            nombre = informacion['nombre']
+            apellido = informacion['apellido']
+            email = informacion['email']
+            estudiante = Estudiante(nombre=nombre, apellido=apellido, email=email)
+            estudiante.save()
+            return render(request, 'AppCoder/Inicio.html')
+    else:
+        miFormulario = EstudianteFormulario()    
+    return render(request, 'FormularioEstudiante.html', {'miFormulario':miFormulario})
+
+
+
+def entregable(request):
+    return render(request, 'template_entregables.html'  )
+
+def formularioEntregable(request):
+    if request.method == 'POST':
+        miFormulario = EntregableFormulario(request.POST)
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            nombre = informacion['nombre']
+            fecha_de_entrega = informacion['fecha_de_entrega']
+            entregado = informacion['entregado']
+            entregable = Entregable(nombre=nombre, fecha_de_entrega=fecha_de_entrega, entregado=entregado)
+            entregable.save()
+            return render(request, 'AppCoder/Inicio.html')
+    else:
+        miFormulario = EntregableFormulario()    
+    return render(request, 'FormularioEntregable.html', {'miFormulario':miFormulario})
+
+
+# BUSQUEDA DE DATOS
+
+def busquedaDeComision(request):
+
+    return render(request, 'buscadorComision.html')
+
+
+def buscar(request):
+
+    # respuesta = f"Estoy buscando la comision Nº: { request.GET['comision'] }"
+    if request.GET['comision']:
+        comision = request.GET['comision']
+        cursos = Curso.objects.filter(comision=comision)
+        return render(request, 'AppCoder/resultadosBusqueda.html', {'cursos':cursos, 'comision':comision})
+    else:
+        respuesta = 'No se ingresó ningúna comisión'
+    return HttpResponse(respuesta)

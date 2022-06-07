@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesores</title>
-</head>
-<body>
-    <center>
-        <h1><a href="../Inicio">INICIO</a></h1>
-    </center>        
-</body>
-</html>
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Profesores AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Profesores</h1>
+
+{% endblock %}
+{% block ContenidoVariable %}
+    <center><h2><a href="/AppCoder/FormularioProfesores/">Profesores: Actualización de planta</a></h2></center>
+    
+{% endblock %}

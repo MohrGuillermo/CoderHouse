@@ -1,0 +1,30 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Entregables AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Trabajos entregables</h1>
+<h2>Ingreso de nuevo trabajo entregable</h2>
+
+{% endblock %}
+{% block ContenidoVariable %}
+<center>
+    <form action="" method="POST">{% csrf_token %}
+        
+        <table>
+        
+            {{miFormulario.as_table}}
+        
+        </table>
+        
+        
+        <input type="submit" value="Enviar formulario API">
+    </form>
+</center>
+{% endblock %}
