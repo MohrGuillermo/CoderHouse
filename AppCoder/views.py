@@ -11,8 +11,8 @@ def inicio(request):
 
 
 def curso(request):
-    
-    return render(request, 'template_cursos.html')  
+    lista_cursos = Curso.objects.all()
+    return render(request, 'AppCoder/template_cursos.html', {'lista_cursos':lista_cursos})
 
 
 def cursoFormulario(request):
@@ -30,30 +30,29 @@ def cursoFormulario(request):
     
     else:
         miFormulario= CursoFormulario()
+
+
+# BUSQUEDA DE DATOS
+
+def busquedaDeComision(request):
+
+    return render(request, 'buscadorComision.html')
+
+
+def buscar(request):
     
-    return render(request, 'cursoFormulario.html', {'miFormulario':miFormulario} )
-
-
-
-def profesores(request):
-    return render(request, 'template_profesores.html')
-
-
-def formularioProfesor(request):
-    if request.method == 'POST':
-        miFormulario = ProfesorFormulario(request.POST)
-        if miFormulario.is_valid():
-            informacion = miFormulario.cleaned_data
-            nombre = informacion['nombre']
-            apellido = informacion['apellido']
-            email = informacion['email']
-            profesion = informacion['profesion']
-            profesor = Profesor(nombre=nombre, apellido=apellido, email=email, profesion=profesion)
-            profesor.save()
-            return render(request, 'AppCoder/Inicio.html')
+    respuesta = f"Estoy buscando la comision Nº: { request.GET['comision'] }"
+    if request.GET['comision']:
+        comision = request.GET['comision']
+        cursos = Curso.objects.filter(comision=comision)
+        return render(request, 'AppCoder/resultadosBusqueda.html', {'cursos':cursos, 'comision':comision},)
     else:
-        miFormulario = ProfesorFormulario()    
-    return render(request, 'FormularioProfesores.html', {'miFormulario':miFormulario})
+        respuesta = 'No se ingresó ningúna comisión'
+        return render(request, 'AppCoder/resultadosBusqueda.html', {'respuesta':respuesta})
+    
+
+
+
 
 
 def estudiante(request):
@@ -79,6 +78,7 @@ def formularioEstudiante(request):
             return render(request, 'AppCoder/Inicio.html')
     else:
         miFormulario = EstudianteFormulario()    
+    
     return render(request, 'FormularioEstudiante.html', {'miFormulario':miFormulario})
 
 
@@ -102,20 +102,34 @@ def formularioEntregable(request):
     return render(request, 'FormularioEntregable.html', {'miFormulario':miFormulario})
 
 
-# BUSQUEDA DE DATOS
+   
 
-def busquedaDeComision(request):
+def verProfesores(request):
+    profesores = Profesor.objects.all()
+    return render(request, 'AppCoder/template_profesores.html', {'profesores':profesores})
 
-    return render(request, 'buscadorComision.html')
 
-
-def buscar(request):
-
-    # respuesta = f"Estoy buscando la comision Nº: { request.GET['comision'] }"
-    if request.GET['comision']:
-        comision = request.GET['comision']
-        cursos = Curso.objects.filter(comision=comision)
-        return render(request, 'AppCoder/resultadosBusqueda.html', {'cursos':cursos, 'comision':comision})
+def formularioProfesor(request):
+    if request.method == 'POST':
+        miFormulario = ProfesorFormulario(request.POST)
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            nombre = informacion['nombre']
+            apellido = informacion['apellido']
+            email = informacion['email']
+            profesion = informacion['profesion']
+            profesor = Profesor(nombre=nombre, apellido=apellido, email=email, profesion=profesion)
+            profesor.save()
+            return render(request, 'AppCoder/inicio.html')
     else:
-        respuesta = 'No se ingresó ningúna comisión'
-    return HttpResponse(respuesta)
+        miFormulario = ProfesorFormulario()    
+    return render(request, 'FormularioProfesores.html', {'miFormulario':miFormulario})
+
+# CRUD de eliminacion.
+def eliminarProfesor(request, nombre):
+    profesor = Profesor.objects.get(nombre=nombre)
+    profesor.delete()
+    profesores = Profesor.objects.all()
+    contexto = {'profesores':profesores}
+    return render(request, 'AppCoder/template_profesores.html', contexto)
+    
