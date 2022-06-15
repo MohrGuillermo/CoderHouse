@@ -1,0 +1,29 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Estudiantes AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Estudiantes</h1>
+<h2>Actualizacion de datos</h2>
+
+{% endblock %}
+{% block ContenidoVariable %}
+<br><br><br>
+<h1>Esta es la sección de cursos</h1>
+<center>
+  <form method="POST">{% csrf_token %}
+    <p>Estás seguro de eliminar el curso "{{object}}"</p>
+    <input type="submit" value="Eliminar"><br><br>
+    <button>
+      <a href="{% url 'cursos_listar' %}">Volver</a>
+    </button>
+  </form>
+</center>
+<br><br><br>
+{% endblock %} 

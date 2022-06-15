@@ -1,0 +1,43 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Cursos AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Cursos</h1>
+
+{% endblock %}
+{% block ContenidoVariable %}
+<br><br><br>
+<center>
+  <h1>Esta es la sección de cursos</h1>
+  {% for curso in object_list %} <!-- object_list es una lista de cursos -->
+<li>{{curso}}</li>
+
+<button>
+  <a href="{% url 'curso_detalle' curso.id %}">Detalle</a>
+</button>
+<button>
+  <a href="{% url 'curso_editar' curso.id %}">Editar</a>
+</button>
+<button>
+  <a href="{% url 'curso_borrar' curso.id %}">Borrar</a>
+</button>
+{% endfor %}
+<br>
+<br>
+<button>
+  <a href="{% url 'curso_crear' %}">Crear</a>
+</button>
+<button>
+  <a href="{% url 'busquedaDeComision' %}">Buscar un curso</a>
+</button>
+
+</center>
+<br><br><br>
+{% endblock %} 

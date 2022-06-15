@@ -1,0 +1,30 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Cursos AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Cursos</h1>
+<h2>Plataforma de creacion de cursos</h2>
+
+{% endblock %}
+{% block ContenidoVariable %}
+<br><br><br>
+<center>
+  <form method="POST">{% csrf_token %}
+    <h1>Edita el curso</h1>
+    {{ form.as_p }}
+    <input type="submit" value="Enviar">
+  </form>
+  <br>
+  <button>
+    <a href="{% url 'cursos_listar' %}">Volver</a>
+  </button>
+</center>
+<br><br><br>
+{% endblock %} 

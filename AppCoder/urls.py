@@ -1,20 +1,40 @@
 from django.urls import path
-from .views import curso, formularioEntregable, formularioProfesor, inicio, entregable, estudiante, formularioEstudiante, cursoFormulario, buscar, busquedaDeComision, verProfesores, editarProfesor, eliminarProfesor, eliminarCurso, editarCurso, buscarEstudiante, encontrarEstudiante, eliminarEstudiante, editarEstudiante, buscarProfesor, encontrarProfesor, buscarEntregable, editarEntregable, eliminarEntregable, encontrarEntregable
+from .views import inicio, formularioEntregable, formularioProfesor, entregable, estudiante, formularioEstudiante, verProfesores, editarProfesor, eliminarProfesor, buscarEstudiante, encontrarEstudiante, eliminarEstudiante, editarEstudiante, buscarProfesor, encontrarProfesor, buscarEntregable, editarEntregable, eliminarEntregable, encontrarEntregable, login_request, registro_request
+# VISTAS DESCARTADAS Y REEMPLAZADAS POR LAS LISVIEWS DE DJANGO:curso, cursoFormulario, eliminarCurso, editarCurso,
+# Vistas de busqueda de cursos que todavia no modificamos
+from .views import buscar, busquedaDeComision
+from .views import CursoCreacion, CursoEdicion, CursoEliminacion, CursoDetalle, CursoList # Importamos las vistas de las nuevas clases que creamos con Django LIST VIEWS.
 
 # ESTE ES UN PASO DE VITAL IMPORTANCIA QUE PERMITIRA NOMBRAR CADA RUTA MEDIANTE LA CUAL ACCEDEREMOS A NUESTRAS VIEWS, TODA VIEW NECESITA TENER SU PATH PARA SER VISTA EN LA INTERFACE. 
 
 urlpatterns = [
-    # paths de paginas iniciales
+    # path de paginas iniciales
     path('', inicio, name='Inicio'),
 
-    # paths de paginas de cursos
-    path('cursos/', curso, name= 'Cursos'),
-    path('editarCurso/<nombre>', editarCurso, name = 'editarCurso'),
-    path('eliminarCurso/<nombre>', eliminarCurso, name = 'eliminarCurso'),
-    path('cursoFormulario/', cursoFormulario, name ='cursoFormulario'),
-    path('BusquedaDeComision/', busquedaDeComision, name = 'BusquedaDeComision'	),
-    path('Buscar/', buscar, name = 'Buscar'),
+    # paths de logueo de usuarios
+    path('login/', login_request, name='login'),
+    path('registro/', registro_request, name='registro'),
 
+    # # paths de paginas de cursos, usando formularios basicos.
+    # path('cursos/', curso, name= 'Cursos'),
+    # path('editarCurso/<nombre>', editarCurso, name = 'editarCurso'),
+    # path('eliminarCurso/<nombre>', eliminarCurso, name = 'eliminarCurso'),
+    # path('cursoFormulario/', cursoFormulario, name ='cursoFormulario'),
+
+
+    # Paths de paginas de cursos usando formularios de django
+
+    path('cursos/list/', CursoList.as_view(), name='cursos_listar'),
+    path('curso/<pk>', CursoDetalle.as_view(), name='curso_detalle'),
+    path('curso/nuevo/', CursoCreacion.as_view(), name='curso_crear'),
+    path('curso/editar/<pk>', CursoEdicion.as_view(), name='curso_editar'),
+    path('curso/borrar/<pk>', CursoEliminacion.as_view(), name='curso_borrar'),
+    
+    # Paths de busqueda que todavia no modificamos
+    path('Buscar/', buscar, name='Buscar'),
+    path('busquedaDeComision/', busquedaDeComision, name='busquedaDeComision'),
+
+    
     # paths de paginas de entregables
     path('entregables/', entregable, name='Entregable'),
     path('FormularioEntregable/', formularioEntregable, name = 'FormularioEntregable'),  
