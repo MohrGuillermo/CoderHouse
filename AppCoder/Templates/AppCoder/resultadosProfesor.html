@@ -1,0 +1,34 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Profesores AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Restultado de su busqueda</h1>
+
+{% endblock %}
+{% block ContenidoVariable %}
+
+{% if profesores %}
+<h2>Estos son los resultados de su busqueda:</h2>
+<br><br>
+<ul>    
+{% for profesor in profesores %}
+<h3>
+    <li>{{profesor.nombre}}</li>
+    <li>{{profesor.apellido}}</li>
+    <li>{{profesor.profesion}}</li>
+</h3>
+{% endfor %}    
+</ul>
+{% else %}
+<center>
+<h3>El profesor no se encuentra en la base de datos.</h3>
+</center>
+{% endif %}    
+{% endblock %}

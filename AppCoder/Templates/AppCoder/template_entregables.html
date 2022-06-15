@@ -9,11 +9,34 @@
 {% endblock %}
 {% block Cartel %}
 
-<h1>Entregables</h1>
+<h1>TP's</h1>
 
 {% endblock %}
 {% block ContenidoVariable %}
-    <center>
-        <h2><a href="../FormularioEntregable">Ingreso de nuevos trabajos</a></h2>
-    </center>        
+
+
+<center>
+    <h2><a href="../FormularioEntregable">Creacion de trabajos entregables</a></h2>
+    <h2><a href="/AppCoder/buscarEntregable/">Buscar un entregable</a></h2>
+</center>        
+
+
+<h3>Listado de trabajos pendientes:</h3>
+{% for entregable in entregables %}
+<li><b>Nombre:</b><br>  {{entregable.nombre}} <br> <b>Fecha de entrega:</b><br>   {{entregable.fecha_de_entrega}} </li>
+
+<button>
+        
+    <a href="{% url 'eliminarEntregable' entregable.nombre %}">Eliminar entregable</a>
+    
+</button>
+<button>
+
+    <a href="{% url 'editarEntregable' entregable.nombre %}">Editar entregable</a>
+    
+</button>
+
+<br><br>
+{% endfor %}
+
 {% endblock %}

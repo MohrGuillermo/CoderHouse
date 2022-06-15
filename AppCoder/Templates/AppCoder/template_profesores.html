@@ -13,6 +13,14 @@
 
 {% endblock %}
 {% block ContenidoVariable %}
+
+
+<center>
+    <h2><a href="../FormularioProfesores">Formulario de actualizacion de planta</a></h2>
+    <h2><a href="/AppCoder/buscarProfesor/">Buscar un profesor</a></h2>
+</center>        
+
+
 <h3>Listado de profesores vigente:</h3>
 {% for profesor in profesores %}
 <li><b>Nombre:</b><br>  {{profesor.nombre}} <br> <b>Apellido:</b><br>   {{profesor.apellido}} </li>
@@ -29,5 +37,5 @@
 </button>
 <br><br>
 {% endfor %}
-    
+
 {% endblock %}

@@ -1,0 +1,34 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Comisiones AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Restultado de su busqueda</h1>
+
+{% endblock %}
+{% block ContenidoVariable %}
+
+{% if estudiantes %}
+<h2>Estos son los resultados de su busqueda:</h2>
+<br><br>
+<ul>    
+{% for estudiante in estudiantes %}
+<h3>
+    <li>{{estudiante.nombre}}</li>
+    <li>{{estudiante.apellido}}</li>
+    
+</h3>
+{% endfor %}    
+</ul>
+{% else %}
+<center>
+<h3>El estudiante no se encuentra en la base de datos.</h3>
+</center>
+{% endif %}    
+{% endblock %}

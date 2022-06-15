@@ -13,21 +13,32 @@
 
 {% endblock %}
 {% block ContenidoVariable %}
-<h3>Listado de cursos vigentes:</h3>
-{% for curso in lista_cursos %}
-<h4>
-<li>
-    <b>
-        {{curso.nombre}} <br>
-        {{curso.comision}}
-    </b> 
-    <br><br>
-</li>
-</h4>
-{% endfor %}
 <center>
     <h2><a href="/AppCoder/cursoFormulario/">Alta de cursos</a></h2>
     <h2><a href="/AppCoder/BusquedaDeComision/">Buscar un curso</a></h2>
 </center>
+<h3>Listado de cursos vigentes:</h3>
+{% for curso in lista_cursos %}
+
+<li>
+    
+    <b>Nombre:</b> {{curso.nombre}}
+    
+    <br>
+    
+    <b>Comision:</b> {{curso.comision}}
+     
+    <br>
+<button>
+    <a href="{% url 'eliminarCurso' curso.nombre %}">Eliminar </a>
+</button>
+<button>
+    <a href="{% url 'editarCurso' curso.nombre %}">Editar </a>
+</button>
+    <br><br>
+</li>
+
+{% endfor %}
+
     
 {% endblock %}
