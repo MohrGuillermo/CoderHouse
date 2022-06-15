@@ -16,12 +16,18 @@
 <h3>Listado de profesores vigente:</h3>
 {% for profesor in profesores %}
 <li><b>Nombre:</b><br>  {{profesor.nombre}} <br> <b>Apellido:</b><br>   {{profesor.apellido}} </li>
+
 <button>
+        
     <a href="{% url 'eliminarProfesor' profesor.nombre %}">Eliminar profesor</a>
+    
+</button>
+<button>
+
+    <a href="{% url 'editarProfesor' profesor.nombre %}">Editar profesor</a>
+    
 </button>
 <br><br>
-
 {% endfor %}
-    <center><h2><a href="/AppCoder/FormularioProfesores/">Agregar un profesor</a></h2></center>
     
 {% endblock %}

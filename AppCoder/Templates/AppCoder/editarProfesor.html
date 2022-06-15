@@ -1,0 +1,30 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Profesores AppCoder</title>
+
+{% endblock %}
+{% block Cartel %}
+
+<h1>Profesores</h1>
+<h2>Formulario de asignacion de profesores</h2>
+
+{% endblock %}
+{% block ContenidoVariable %}
+<center>
+    <form action="{% url 'editarProfesor' profesor_nombre %}" method="POST">{% csrf_token %}
+        
+        <table>
+        
+            {{miFormulario.as_table}}
+        
+        </table>
+        
+        
+        <input type="submit" value="Actualizar">
+    </form>
+</center>
+    {% endblock %}

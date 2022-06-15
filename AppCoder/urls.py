@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import curso, formularioEntregable, formularioProfesor, inicio, entregable, estudiante, formularioEstudiante, cursoFormulario, buscar, busquedaDeComision, verProfesores, eliminarProfesor
+from .views import curso, formularioEntregable, formularioProfesor, inicio, entregable, estudiante, formularioEstudiante, cursoFormulario, buscar, busquedaDeComision, verProfesores, editarProfesor, eliminarProfesor
 
 # ESTE ES UN PASO DE VITAL IMPORTANCIA QUE PERMITIRA NOMBRAR CADA RUTA MEDIANTE LA CUAL ACCEDEREMOS A NUESTRAS VIEWS, TODA VIEW NECESITA TENER SU PATH PARA SER VISTA EN LA INTERFACE. 
 
@@ -19,4 +19,7 @@ urlpatterns = [
     path('BusquedaDeComision/', busquedaDeComision, name = 'BusquedaDeComision'	),
     path('Buscar/', buscar, name = 'Buscar'),
     path('eliminarProfesor/<nombre>', eliminarProfesor, name = 'eliminarProfesor'),
+    path('editarProfesor/<profesor_nombre>', editarProfesor, name = 'editarProfesor'),
+
+    
 ]   
